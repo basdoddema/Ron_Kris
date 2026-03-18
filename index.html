@@ -216,6 +216,78 @@
       animation: fadeUp 1.2s 2.3s forwards ease-out;
     }
 
+    /* Easter egg cards */
+    .egg-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(10,6,2,0.7);
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .egg-overlay.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .egg-card {
+      background: linear-gradient(135deg, #1e1408, #2e1f0a);
+      border: 1px solid var(--gold);
+      border-radius: 16px;
+      padding: 2.5rem 3rem;
+      max-width: 340px;
+      width: 90vw;
+      text-align: center;
+      box-shadow: 0 0 60px rgba(201,168,76,0.3);
+      transform: scale(0.85);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .egg-overlay.show .egg-card {
+      transform: scale(1);
+    }
+    .egg-card .egg-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .egg-card .egg-question {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--cream);
+      font-style: italic;
+      margin-bottom: 1.5rem;
+      line-height: 1.4;
+    }
+    .egg-card .egg-answer {
+      font-size: 1rem;
+      color: var(--gold-light);
+      letter-spacing: 0.05em;
+      display: none;
+      margin-top: 0.5rem;
+    }
+    .egg-card .egg-hint {
+      font-size: 0.72rem;
+      color: var(--gold-dark);
+      letter-spacing: 0.2em;
+      margin-top: 1.5rem;
+    }
+    .egg-card.revealed .egg-answer { display: block; }
+    .egg-card.revealed .egg-hint { display: none; }
+    .egg-close {
+      position: absolute;
+      top: 1rem; right: 1.2rem;
+      color: var(--gold-dark);
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -237,6 +309,104 @@
         radial-gradient(ellipse 40% 30% at 70% 20%, rgba(180,130,30,0.06) 0%, transparent 60%);
       pointer-events: none;
     }
+    /* Lyrics button */
+    .lyrics-btn {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 50;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      padding: 0.6rem 1.3rem;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px rgba(201,168,76,0.15);
+    }
+    .lyrics-btn:hover {
+      background: rgba(201,168,76,0.12);
+      box-shadow: 0 0 25px rgba(201,168,76,0.35);
+    }
+
+    /* Lyrics modal */
+    .lyrics-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(10,6,2,0.85);
+      backdrop-filter: blur(6px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .lyrics-overlay.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .lyrics-modal {
+      background: linear-gradient(160deg, #1e1408, #2a1b08);
+      border: 1px solid var(--gold-dark);
+      border-radius: 16px;
+      width: min(560px, 92vw);
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 0 80px rgba(201,168,76,0.2);
+      transform: translateY(20px);
+      transition: transform 0.35s ease;
+    }
+    .lyrics-overlay.show .lyrics-modal {
+      transform: translateY(0);
+    }
+    .lyrics-header {
+      padding: 1.3rem 1.8rem;
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .lyrics-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--gold-light);
+      font-style: italic;
+    }
+    .lyrics-x {
+      background: none;
+      border: none;
+      color: var(--gold-dark);
+      font-size: 1.3rem;
+      cursor: pointer;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+    .lyrics-x:hover { color: var(--gold); }
+    .lyrics-body {
+      overflow-y: auto;
+      padding: 1.8rem 2rem 2rem;
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--cream);
+      font-size: 1.05rem;
+      line-height: 1.9;
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold-dark) transparent;
+    }
+    .lyrics-body p { margin-bottom: 1.4rem; }
+    .lyrics-body .chorus {
+      color: var(--gold-light);
+      font-style: italic;
+      border-left: 2px solid var(--gold-dark);
+      padding-left: 1rem;
+    }
   </style>
 </head>
 <body>
@@ -250,9 +420,9 @@
   <div class="date-label">Geregistreerd Partnerschap</div>
 
   <div class="names names-glow">
-    <em>Ronnie</em>
+    <em style="cursor:pointer" onclick="showEgg('ronnie')">Ronnie</em>
     <span class="ampersand">& </span>
-    <em>Krista</em>
+    <em style="cursor:pointer" onclick="showEgg('krista')">Krista</em>
   </div>
 
   <div class="divider">
@@ -275,10 +445,124 @@
   <div class="bottom-ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
 </div>
 
+<button class="lyrics-btn" onclick="openLyrics()">♪ Tekst</button>
+
+<!-- Lyrics modal -->
+<div class="lyrics-overlay" id="lyricsOverlay" onclick="closeLyricsOutside(event)">
+  <div class="lyrics-modal">
+    <div class="lyrics-header">
+      <span class="lyrics-title">♪ Ons Lied — Ronnie & Krista</span>
+      <button class="lyrics-x" onclick="closeLyrics()">✕</button>
+    </div>
+    <div class="lyrics-body">
+      <p>Zeven jaar geleden, weet je 't nog misschien?<br>
+      Daar bij de zumba hadden jullie 't al gezien.<br>
+      Heerenveen, Hoogeveen wat maakt 't uit.<br>
+      Zolang jullie samen zijn boeit het geen fluit.</p>
+
+      <p>Toen was het officieel, wat geniaal.<br>
+      Nu zijn we dubbel familie allemaal!<br>
+      Ook nog vrienden, dubbel zo fijn,<br>
+      Met jullie samen, is alles één groot festijn!</p>
+
+      <p class="chorus">Ronnie en Krista — Hey!<br>
+      Wat zijn we trots op jullie twee!<br>
+      Eindelijk de volgende stap<br>
+      Tot een officieel partnerschap<br>
+      Lachen, dansen, hee hee!<br>
+      Dan roepen wij, olé!</p>
+
+      <p>Naar een pretpark? Let op de dag.<br>
+      Want anders sta je daar met je goede gedrag.<br>
+      Datum checken, extra vaak.<br>
+      Dat is nu niet meer Kris haar taak.</p>
+
+      <p>Ron hoort niet alles, soms mist hij het begin,<br>
+      "Hè, wat zeg je?" roept hij dan middenin.<br>
+      We blijven ons herhalen, altijd fijn.<br>
+      Ach ja… je zou maar een boemer zijn.</p>
+
+      <p class="chorus">Ronnie en Krista — Hey!<br>
+      Wat zijn we trots op jullie twee!<br>
+      Eindelijk de volgende stap<br>
+      Tot een officieel partnerschap<br>
+      Lachen, dansen, hee hee!<br>
+      Dan roepen wij, olé!</p>
+
+      <p>En in mei komt er nóg meer feestgedruis,<br>
+      Een klein meisje brengt meer leven in huis!<br>
+      Mini-stapjes, roze chaos misschien,<br>
+      Maar wat een geluk om dat samen te zien!</p>
+
+      <p>Flesjes, luiers, korte nachten — ach ja,<br>
+      Met jullie twee wordt dat helemaal prima!<br>
+      En wordt het chaos of gaat het even mis,<br>
+      Dan staan wij klaar… mits het niet elke zaterdag is.</p>
+
+      <p class="chorus">Ronnie en Krista — Hey!<br>
+      Straks met z'n drietjes, olé olé!<br>
+      Dubbel familie wordt nog meer,<br>
+      Met een mini erbij, wat een sfeer!<br>
+      Wij wensen alle geluk en liefde toe<br>
+      Met jullie gezinnetje zonder gedoe<br>
+      Dus blijf elkaar die liefde geven.<br>
+      Ronnie en Krista, lang zullen ze leven!</p>
+    </div>
+  </div>
+</div>
+
 <!-- Verander 'muziek.mp3' naar de bestandsnaam van jouw mp3 -->
+<!-- Easter egg overlay -->
+<div class="egg-overlay" id="eggOverlay" onclick="closeEgg(event)">
+  <div class="egg-card" id="eggCard" onclick="revealAnswer()">
+    <div class="egg-tag">✦ Wist je dat? ✦</div>
+    <div class="egg-question" id="eggQuestion"></div>
+    <div class="egg-answer" id="eggAnswer"></div>
+    <div class="egg-hint">Klik op de kaart voor het antwoord</div>
+  </div>
+</div>
+
 <audio id="audio" src="Liedje.mpeg" preload="auto"></audio>
 
 <script>
+  function openLyrics() { document.getElementById('lyricsOverlay').classList.add('show'); }
+  function closeLyrics() { document.getElementById('lyricsOverlay').classList.remove('show'); }
+  function closeLyricsOutside(e) { if (e.target === document.getElementById('lyricsOverlay')) closeLyrics(); }
+
+  // Easter eggs
+  const eggs = {
+    ronnie: {
+      question: "Is Ronnie een dikke boomer? 🤔",
+      answer: "Ja. Een dikke boomer. 😎"
+    },
+    krista: {
+      question: "Het is grijs en er worden dingen van gemaakt…",
+      answer: "Staal! 🔩"
+    }
+  };
+
+  function showEgg(name) {
+    const egg = eggs[name];
+    document.getElementById('eggQuestion').textContent = egg.question;
+    document.getElementById('eggAnswer').textContent = egg.answer || '';
+    const card = document.getElementById('eggCard');
+    card.classList.remove('revealed');
+    if (!egg.answer) card.style.cursor = 'default';
+    else card.style.cursor = 'pointer';
+    document.getElementById('eggOverlay').classList.add('show');
+  }
+
+  function revealAnswer() {
+    const card = document.getElementById('eggCard');
+    card.classList.add('revealed');
+  }
+
+  function closeEgg(e) {
+    if (e.target === document.getElementById('eggOverlay')) {
+      document.getElementById('eggOverlay').classList.remove('show');
+    }
+  }
+
   // Stars
   const canvas = document.getElementById('stars');
   const ctx = canvas.getContext('2d');
