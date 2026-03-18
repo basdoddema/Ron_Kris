@@ -675,8 +675,6 @@
       status.textContent = 'Speelt af…';
     });
   }
-  document.addEventListener('click', startAudio);
-  document.addEventListener('touchstart', startAudio);
 
   window.addEventListener('load', () => {
     audio.play().then(() => {
