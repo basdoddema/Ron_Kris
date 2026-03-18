@@ -407,6 +407,30 @@
       border-left: 2px solid var(--gold-dark);
       padding-left: 1rem;
     }
+    .lyrics-body .lyric-line {
+      padding: 0.3rem 0.5rem;
+      border-radius: 6px;
+      transition: all 0.4s ease;
+      color: rgba(253,248,240,0.35);
+      font-size: 1.05rem;
+      line-height: 1.9;
+      margin-bottom: 0.15rem;
+    }
+    .lyrics-body .lyric-line.chorus {
+      color: rgba(232,208,138,0.35);
+      font-style: italic;
+      padding-left: 1rem;
+      border-left: 2px solid rgba(138,106,31,0.3);
+    }
+    .lyrics-body .lyric-line.active {
+      color: var(--cream) !important;
+      text-shadow: 0 0 20px rgba(201,168,76,0.5);
+      transform: scale(1.03);
+      transform-origin: left center;
+    }
+    .lyrics-body .lyric-line.chorus.active {
+      color: var(--gold-light) !important;
+    }
   </style>
 </head>
 <body>
@@ -454,59 +478,7 @@
       <span class="lyrics-title">♪ Ons Lied — Ronnie & Krista</span>
       <button class="lyrics-x" onclick="closeLyrics()">✕</button>
     </div>
-    <div class="lyrics-body">
-      <p>Zeven jaar geleden, weet je 't nog misschien?<br>
-      Daar bij de zumba hadden jullie 't al gezien.<br>
-      Heerenveen, Hoogeveen wat maakt 't uit.<br>
-      Zolang jullie samen zijn boeit het geen fluit.</p>
-
-      <p>Toen was het officieel, wat geniaal.<br>
-      Nu zijn we dubbel familie allemaal!<br>
-      Ook nog vrienden, dubbel zo fijn,<br>
-      Met jullie samen, is alles één groot festijn!</p>
-
-      <p class="chorus">Ronnie en Krista — Hey!<br>
-      Wat zijn we trots op jullie twee!<br>
-      Eindelijk de volgende stap<br>
-      Tot een officieel partnerschap<br>
-      Lachen, dansen, hee hee!<br>
-      Dan roepen wij, olé!</p>
-
-      <p>Naar een pretpark? Let op de dag.<br>
-      Want anders sta je daar met je goede gedrag.<br>
-      Datum checken, extra vaak.<br>
-      Dat is nu niet meer Kris haar taak.</p>
-
-      <p>Ron hoort niet alles, soms mist hij het begin,<br>
-      "Hè, wat zeg je?" roept hij dan middenin.<br>
-      We blijven ons herhalen, altijd fijn.<br>
-      Ach ja… je zou maar een boemer zijn.</p>
-
-      <p class="chorus">Ronnie en Krista — Hey!<br>
-      Wat zijn we trots op jullie twee!<br>
-      Eindelijk de volgende stap<br>
-      Tot een officieel partnerschap<br>
-      Lachen, dansen, hee hee!<br>
-      Dan roepen wij, olé!</p>
-
-      <p>En in mei komt er nóg meer feestgedruis,<br>
-      Een klein meisje brengt meer leven in huis!<br>
-      Mini-stapjes, roze chaos misschien,<br>
-      Maar wat een geluk om dat samen te zien!</p>
-
-      <p>Flesjes, luiers, korte nachten — ach ja,<br>
-      Met jullie twee wordt dat helemaal prima!<br>
-      En wordt het chaos of gaat het even mis,<br>
-      Dan staan wij klaar… mits het niet elke zaterdag is.</p>
-
-      <p class="chorus">Ronnie en Krista — Hey!<br>
-      Straks met z'n drietjes, olé olé!<br>
-      Dubbel familie wordt nog meer,<br>
-      Met een mini erbij, wat een sfeer!<br>
-      Wij wensen alle geluk en liefde toe<br>
-      Met jullie gezinnetje zonder gedoe<br>
-      Dus blijf elkaar die liefde geven.<br>
-      Ronnie en Krista, lang zullen ze leven!</p>
+    <div class="lyrics-body" id="lyricsBody">
     </div>
   </div>
 </div>
@@ -515,7 +487,7 @@
 <!-- Easter egg overlay -->
 <div class="egg-overlay" id="eggOverlay" onclick="closeEgg(event)">
   <div class="egg-card" id="eggCard" onclick="revealAnswer()">
-    <div class="egg-tag">✦ Wist je dat? ✦</div>
+    <div class="egg-tag">✦ ✦ ✦</div>
     <div class="egg-question" id="eggQuestion"></div>
     <div class="egg-answer" id="eggAnswer"></div>
     <div class="egg-hint">Klik op de kaart voor het antwoord</div>
@@ -528,6 +500,82 @@
   function openLyrics() { document.getElementById('lyricsOverlay').classList.add('show'); }
   function closeLyrics() { document.getElementById('lyricsOverlay').classList.remove('show'); }
   function closeLyricsOutside(e) { if (e.target === document.getElementById('lyricsOverlay')) closeLyrics(); }
+
+  // Karaoke lyrics met timestamps (seconden)
+  const lyricsData = [
+    { t: 8,   text: "Zeven jaar geleden, weet je 't nog misschien?", chorus: false },
+    { t: 12,  text: "Daar bij de zumba hadden jullie 't al gezien.", chorus: false },
+    { t: 15,  text: "Heerenveen, Hoogeveen wat maakt 't uit.", chorus: false },
+    { t: 18,  text: "Zolang jullie samen zijn boeit het geen fluit.", chorus: false },
+    { t: 21,  text: "Toen was het officieel, wat geniaal.", chorus: false },
+    { t: 25,  text: "Nu zijn we dubbel familie allemaal!", chorus: false },
+    { t: 28,  text: "Ook nog vrienden, dubbel zo fijn,", chorus: false },
+    { t: 31,  text: "Met jullie samen, is alles één groot festijn!", chorus: false },
+    { t: 36,  text: "Ronnie en Krista — Hey!", chorus: true },
+    { t: 39,  text: "Wat zijn we trots op jullie twee!", chorus: true },
+    { t: 43,  text: "Eindelijk de volgende stap", chorus: true },
+    { t: 46,  text: "Tot een officieel partnerschap", chorus: true },
+    { t: 50,  text: "Lachen, dansen, hee hee!", chorus: true },
+    { t: 53,  text: "Dan roepen wij, olé!", chorus: true },
+    { t: 60,  text: "Naar een pretpark? Let op de dag.", chorus: false },
+    { t: 64,  text: "Want anders sta je daar met je goede gedrag.", chorus: false },
+    { t: 67,  text: "Datum checken, extra vaak.", chorus: false },
+    { t: 70,  text: "Dat is nu niet meer Kris haar taak.", chorus: false },
+    { t: 74,  text: "Ron hoort niet alles, soms mist hij het begin,", chorus: false },
+    { t: 77,  text: "\"Hè, wat zeg je?\" roept hij dan middenin.", chorus: false },
+    { t: 80,  text: "We blijven ons herhalen, altijd fijn.", chorus: false },
+    { t: 83,  text: "Ach ja… je zou maar een boemer zijn.", chorus: false },
+    { t: 89,  text: "Ronnie en Krista — Hey!", chorus: true },
+    { t: 92,  text: "Wat zijn we trots op jullie twee!", chorus: true },
+    { t: 96,  text: "Eindelijk de volgende stap", chorus: true },
+    { t: 99,  text: "Tot een officieel partnerschap", chorus: true },
+    { t: 102, text: "Lachen, dansen, hee hee!", chorus: true },
+    { t: 105, text: "Dan roepen wij, olé!", chorus: true },
+    { t: 112, text: "En in mei komt er nóg meer feestgedruis,", chorus: false },
+    { t: 115, text: "Een klein meisje brengt meer leven in huis!", chorus: false },
+    { t: 119, text: "Mini-stapjes, roze chaos misschien,", chorus: false },
+    { t: 122, text: "Maar wat een geluk om dat samen te zien!", chorus: false },
+    { t: 127, text: "Flesjes, luiers, korte nachten — ach ja,", chorus: false },
+    { t: 131, text: "Met jullie twee wordt dat helemaal prima!", chorus: false },
+    { t: 134, text: "En wordt het chaos of gaat het even mis,", chorus: false },
+    { t: 137, text: "Dan staan wij klaar… mits het niet elke zaterdag is.", chorus: false },
+    { t: 145, text: "Ronnie en Krista — Hey!", chorus: true },
+    { t: 149, text: "Straks met z'n drietjes, olé olé!", chorus: true },
+    { t: 152, text: "Dubbel familie wordt nog meer,", chorus: true },
+    { t: 155, text: "Met een mini erbij, wat een sfeer!", chorus: true },
+    { t: 158, text: "Wij wensen alle geluk en liefde toe", chorus: true },
+    { t: 162, text: "Met jullie gezinnetje zonder gedoe", chorus: true },
+    { t: 166, text: "Dus blijf elkaar die liefde geven.", chorus: true },
+    { t: 169, text: "Ronnie en Krista, lang zullen ze leven!", chorus: true },
+  ];
+
+  // Bouw karaoke regels in de modal
+  const lyricsBody = document.getElementById('lyricsBody');
+  lyricsData.forEach((line, i) => {
+    const el = document.createElement('div');
+    el.className = 'lyric-line' + (line.chorus ? ' chorus' : '');
+    el.id = 'line-' + i;
+    el.textContent = line.text;
+    lyricsBody.appendChild(el);
+  });
+
+  let activeLine = -1;
+  function updateKaraoke() {
+    const t = audio.currentTime;
+    let current = -1;
+    for (let i = lyricsData.length - 1; i >= 0; i--) {
+      if (t >= lyricsData[i].t) { current = i; break; }
+    }
+    if (current !== activeLine) {
+      if (activeLine >= 0) document.getElementById('line-' + activeLine)?.classList.remove('active');
+      if (current >= 0) {
+        const el = document.getElementById('line-' + current);
+        el?.classList.add('active');
+        el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      activeLine = current;
+    }
+  }
 
   // Easter eggs
   const eggs = {
@@ -658,6 +706,7 @@
     if (audio.duration) {
       progressBar.style.width = (audio.currentTime / audio.duration * 100) + '%';
     }
+    updateKaraoke();
   });
 
   audio.addEventListener('ended', () => {
