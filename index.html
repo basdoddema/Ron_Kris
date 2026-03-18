@@ -525,7 +525,7 @@
     { t: 74,  text: "Ron hoort niet alles, soms mist hij het begin,", chorus: false },
     { t: 77,  text: "\"Hè, wat zeg je?\" roept hij dan middenin.", chorus: false },
     { t: 80,  text: "We blijven ons herhalen, altijd fijn.", chorus: false },
-    { t: 83,  text: "Ach ja… je zou maar een boemer zijn.", chorus: false },
+    { t: 83,  text: "Ach ja… je zou maar een boomer zijn.", chorus: false },
     { t: 89,  text: "Ronnie en Krista — Hey!", chorus: true },
     { t: 92,  text: "Wat zijn we trots op jullie twee!", chorus: true },
     { t: 96,  text: "Eindelijk de volgende stap", chorus: true },
@@ -547,7 +547,7 @@
     { t: 158, text: "Wij wensen alle geluk en liefde toe", chorus: true },
     { t: 162, text: "Met jullie gezinnetje zonder gedoe", chorus: true },
     { t: 166, text: "Dus blijf elkaar die liefde geven.", chorus: true },
-    { t: 169, text: "Ronnie en Krista, lang zullen ze leven!", chorus: true },
+    { t: 169, text: "Ronnie en Krista, lang zullen leven!", chorus: true },
   ];
 
   // Bouw karaoke regels in de modal
@@ -706,6 +706,10 @@
       progressBar.style.width = (audio.currentTime / audio.duration * 100) + '%';
     }
     updateKaraoke();
+  });
+
+  audio.addEventListener('timeupdate', () => {
+  console.log(Math.floor(audio.currentTime));
   });
 
   audio.addEventListener('ended', () => {
