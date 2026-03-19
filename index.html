@@ -411,7 +411,7 @@
       padding: 0.3rem 0.5rem;
       border-radius: 6px;
       transition: all 0.4s ease;
-      color: rgba(253,248,240,0.35);
+      color: rgba(253,248,240,0);
       font-size: 1.05rem;
       line-height: 1.9;
       margin-bottom: 0.15rem;
@@ -427,6 +427,12 @@
       text-shadow: 0 0 20px rgba(201,168,76,0.5);
       transform: scale(1.03);
       transform-origin: left center;
+    }
+    .lyrics-body .lyric-line.sung {
+    color: rgba(253,248,240,0.35);
+    }
+    .lyrics-body .lyric-line.chorus.sung {
+    color: rgba(232,208,138,0.35);
     }
     .lyrics-body .lyric-line.chorus.active {
       color: var(--gold-light) !important;
@@ -568,7 +574,11 @@
       if (t >= lyricsData[i].t) { current = i; break; }
     }
     if (current !== activeLine) {
-      if (activeLine >= 0) document.getElementById('line-' + activeLine)?.classList.remove('active');
+      if (activeLine >= 0) {
+        const old = document.getElementById('line-' + activeLine);
+        old?.classList.remove('active');
+        old?.classList.add('sung');
+        }
       if (current >= 0) {
         const el = document.getElementById('line-' + current);
         el?.classList.add('active');
