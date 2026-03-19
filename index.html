@@ -258,7 +258,7 @@
 <div class="lyrics-overlay" id="lyricsOverlay" onclick="closeLyricsOutside(event)">
   <div class="lyrics-modal">
     <div class="lyrics-header">
-      <span class="lyrics-title">♪ Zumba tot Partnerschap — Ronnie & Krista</span>
+      <span class="lyrics-title">♪ Hè, Wat Zeg Je? — Ronnie & Krista</span>
       <button class="lyrics-x" onclick="closeLyrics()">✕</button>
     </div>
     <div class="lyrics-body" id="lyricsBody">
@@ -365,7 +365,7 @@
   // Lyrics modal — start muziek als die nog niet speelt
   function openLyrics() {
     document.getElementById('lyricsOverlay').classList.add('show');
-    if (!playing) {
+    if (!hasStarted) {
       document.getElementById('lyricsNotPlaying').style.display = 'block';
     }
   }
@@ -447,6 +447,7 @@
   const currentTimeEl = document.getElementById('currentTime');
   const totalTimeEl = document.getElementById('totalTime');
   let playing = false;
+  let hasStarted = false;
 
   function formatTime(s) {
     const m = Math.floor(s / 60);
@@ -489,6 +490,7 @@
       btn.textContent = '⏸';
       status.textContent = 'Speelt af…';
       playing = true;
+      hasStarted = true;
       document.getElementById('lyricsNotPlaying').style.display = 'none';
     }
   }
