@@ -25,34 +25,19 @@
       cursor: default;
     }
 
-    /* Starfield */
-    .stars {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
+    .stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
     .star {
-      position: absolute;
-      border-radius: 50%;
-      background: white;
-      animation: twinkle var(--d) ease-in-out infinite alternate;
-      opacity: 0;
+      position: absolute; border-radius: 50%; background: white;
+      animation: twinkle var(--d) ease-in-out infinite alternate; opacity: 0;
     }
     @keyframes twinkle {
       from { opacity: 0; transform: scale(0.8); }
       to   { opacity: var(--op); transform: scale(1.2); }
     }
 
-    /* Floating petals */
     .petal {
-      position: fixed;
-      top: -40px;
-      font-size: 1.2rem;
-      animation: fall linear infinite;
-      opacity: 0.6;
-      pointer-events: none;
-      z-index: 1;
+      position: fixed; top: -40px; font-size: 1.2rem;
+      animation: fall linear infinite; opacity: 0.6; pointer-events: none; z-index: 1;
     }
     @keyframes fall {
       0%   { transform: translateY(-40px) rotate(0deg); opacity: 0; }
@@ -61,382 +46,149 @@
       100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
     }
 
-    /* Main content */
     .page {
-      position: relative;
-      z-index: 10;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 3rem 2rem;
-      text-align: center;
+      position: relative; z-index: 10; min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; padding: 3rem 2rem; text-align: center;
     }
 
-    /* Ornament top */
     .ornament {
-      font-size: 2rem;
-      color: var(--gold);
-      letter-spacing: 0.3em;
-      margin-bottom: 1.5rem;
-      opacity: 0;
-      animation: fadeUp 1.2s 0.3s forwards ease-out;
+      font-size: 2rem; color: var(--gold); letter-spacing: 0.3em;
+      margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 1.2s 0.3s forwards ease-out;
     }
-
     .date-label {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.85rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--gold-light);
-      margin-bottom: 2rem;
-      opacity: 0;
+      font-size: 0.85rem; letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--gold-light); margin-bottom: 2rem; opacity: 0;
       animation: fadeUp 1.2s 0.6s forwards ease-out;
     }
-
     .names {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(3.5rem, 10vw, 7rem);
-      color: var(--cream);
-      line-height: 1.05;
-      letter-spacing: -0.01em;
-      opacity: 0;
-      animation: fadeUp 1.4s 0.9s forwards ease-out;
+      font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 10vw, 7rem);
+      color: var(--cream); line-height: 1.05; letter-spacing: -0.01em;
+      opacity: 0; animation: fadeUp 1.4s 0.9s forwards ease-out;
     }
-    .names em {
-      font-style: italic;
-      color: var(--gold-light);
-    }
-    .ampersand {
-      display: block;
-      font-size: clamp(2rem, 6vw, 4rem);
-      color: var(--gold);
-      margin: 0.1em 0;
-    }
+    .names em { font-style: italic; color: var(--gold-light); }
+    .ampersand { display: block; font-size: clamp(2rem, 6vw, 4rem); color: var(--gold); margin: 0.1em 0; }
 
     .divider {
-      display: flex;
-      align-items: center;
-      gap: 1.2rem;
-      margin: 2.5rem auto;
-      width: min(500px, 90vw);
-      opacity: 0;
-      animation: fadeUp 1.2s 1.3s forwards ease-out;
+      display: flex; align-items: center; gap: 1.2rem;
+      margin: 2.5rem auto; width: min(500px, 90vw);
+      opacity: 0; animation: fadeUp 1.2s 1.3s forwards ease-out;
     }
-    .divider-line {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--gold), transparent);
-    }
-    .divider-diamond {
-      color: var(--gold);
-      font-size: 1.2rem;
-    }
+    .divider-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+    .divider-diamond { color: var(--gold); font-size: 1.2rem; }
 
-    .subtitle {
-      font-size: clamp(1.1rem, 3vw, 1.5rem);
-      color: var(--blush);
-      font-style: italic;
-      font-weight: 300;
-      letter-spacing: 0.08em;
-      max-width: 500px;
-      line-height: 1.7;
-      opacity: 0;
-      animation: fadeUp 1.2s 1.6s forwards ease-out;
-    }
-
-    /* Music player */
-    .player-wrap {
-      margin-top: 3rem;
-      opacity: 0;
-      animation: fadeUp 1.2s 2s forwards ease-out;
-    }
-    .player-label {
-      font-size: 0.75rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1rem;
-    }
+    .player-wrap { margin-top: 3rem; opacity: 0; animation: fadeUp 1.2s 2s forwards ease-out; }
+    .player-label { font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
     .player-btn {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      border: 1.5px solid var(--gold);
-      background: transparent;
-      color: var(--gold);
-      font-size: 1.4rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto;
-      box-shadow: 0 0 20px rgba(201,168,76,0.2);
+      width: 64px; height: 64px; border-radius: 50%; border: 1.5px solid var(--gold);
+      background: transparent; color: var(--gold); font-size: 1.4rem; cursor: pointer;
+      transition: all 0.3s ease; display: flex; align-items: center; justify-content: center;
+      margin: 0 auto; box-shadow: 0 0 20px rgba(201,168,76,0.2);
     }
-    .player-btn:hover {
-      background: rgba(201,168,76,0.15);
-      box-shadow: 0 0 30px rgba(201,168,76,0.5);
-      transform: scale(1.05);
-    }
-    .player-status {
-      margin-top: 0.8rem;
-      font-size: 0.8rem;
-      letter-spacing: 0.2em;
-      color: var(--gold-light);
-      opacity: 0.7;
-      min-height: 1.2em;
-    }
+    .player-btn:hover { background: rgba(201,168,76,0.15); box-shadow: 0 0 30px rgba(201,168,76,0.5); transform: scale(1.05); }
 
-    /* Progress bar */
-    .progress-wrap {
-      margin-top: 1.2rem;
-      width: 200px;
-      height: 2px;
-      background: rgba(201,168,76,0.2);
-      border-radius: 2px;
-      overflow: hidden;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .progress-bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(to right, var(--gold-dark), var(--gold-light));
-      border-radius: 2px;
-      transition: width 0.5s linear;
-    }
+    .player-status { margin-top: 0.8rem; font-size: 0.8rem; letter-spacing: 0.2em; color: var(--gold-light); opacity: 0.7; min-height: 1.2em; }
 
-    /* Bottom ornament */
+    /* Seek bar */
+    .seek-wrap {
+      margin-top: 1.2rem; display: flex; align-items: center;
+      gap: 0.6rem; width: 260px; margin-left: auto; margin-right: auto;
+    }
+    .seek-time { font-size: 0.7rem; color: var(--gold-dark); letter-spacing: 0.05em; min-width: 2.8em; text-align: center; }
+    #seekBar { flex: 1; accent-color: var(--gold); cursor: pointer; }
+
     .bottom-ornament {
-      margin-top: 3.5rem;
-      font-size: 1.5rem;
-      color: var(--gold-dark);
-      letter-spacing: 0.5em;
-      opacity: 0;
-      animation: fadeUp 1.2s 2.3s forwards ease-out;
+      margin-top: 3.5rem; font-size: 1.5rem; color: var(--gold-dark);
+      letter-spacing: 0.5em; opacity: 0; animation: fadeUp 1.2s 2.3s forwards ease-out;
     }
 
-    /* Easter egg cards */
+    /* Easter egg */
     .egg-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(10,6,2,0.7);
-      backdrop-filter: blur(4px);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
+      position: fixed; inset: 0; z-index: 100; display: flex; align-items: center;
+      justify-content: center; background: rgba(10,6,2,0.7); backdrop-filter: blur(4px);
+      opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
     }
-    .egg-overlay.show {
-      opacity: 1;
-      pointer-events: all;
-    }
+    .egg-overlay.show { opacity: 1; pointer-events: all; }
     .egg-card {
-      background: linear-gradient(135deg, #1e1408, #2e1f0a);
-      border: 1px solid var(--gold);
-      border-radius: 16px;
-      padding: 2.5rem 3rem;
-      max-width: 340px;
-      width: 90vw;
-      text-align: center;
-      box-shadow: 0 0 60px rgba(201,168,76,0.3);
-      transform: scale(0.85);
-      transition: transform 0.3s ease;
-      cursor: pointer;
+      background: linear-gradient(135deg, #1e1408, #2e1f0a); border: 1px solid var(--gold);
+      border-radius: 16px; padding: 2.5rem 3rem; max-width: 340px; width: 90vw;
+      text-align: center; box-shadow: 0 0 60px rgba(201,168,76,0.3);
+      transform: scale(0.85); transition: transform 0.3s ease; cursor: pointer;
     }
-    .egg-overlay.show .egg-card {
-      transform: scale(1);
-    }
-    .egg-card .egg-tag {
-      font-size: 0.7rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1rem;
-    }
-    .egg-card .egg-question {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
-      color: var(--cream);
-      font-style: italic;
-      margin-bottom: 1.5rem;
-      line-height: 1.4;
-    }
-    .egg-card .egg-answer {
-      font-size: 1rem;
-      color: var(--gold-light);
-      letter-spacing: 0.05em;
-      display: none;
-      margin-top: 0.5rem;
-    }
-    .egg-card .egg-hint {
-      font-size: 0.72rem;
-      color: var(--gold-dark);
-      letter-spacing: 0.2em;
-      margin-top: 1.5rem;
-    }
+    .egg-overlay.show .egg-card { transform: scale(1); }
+    .egg-card .egg-tag { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .egg-card .egg-question { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--cream); font-style: italic; margin-bottom: 1.5rem; line-height: 1.4; }
+    .egg-card .egg-answer { font-size: 1rem; color: var(--gold-light); letter-spacing: 0.05em; display: none; margin-top: 0.5rem; }
+    .egg-card .egg-hint { font-size: 0.72rem; color: var(--gold-dark); letter-spacing: 0.2em; margin-top: 1.5rem; }
     .egg-card.revealed .egg-answer { display: block; }
     .egg-card.revealed .egg-hint { display: none; }
-    .egg-close {
-      position: absolute;
-      top: 1rem; right: 1.2rem;
-      color: var(--gold-dark);
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* Glow pulse on names */
-    .names-glow {
-      text-shadow: 0 0 60px rgba(201,168,76,0.15);
-    }
-
-    /* Candlelight background glow */
+    .names-glow { text-shadow: 0 0 60px rgba(201,168,76,0.15); }
     .glow-bg {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
       background:
         radial-gradient(ellipse 60% 50% at 50% 60%, rgba(140,90,20,0.18) 0%, transparent 70%),
         radial-gradient(ellipse 40% 30% at 30% 80%, rgba(180,80,30,0.08) 0%, transparent 60%),
         radial-gradient(ellipse 40% 30% at 70% 20%, rgba(180,130,30,0.06) 0%, transparent 60%);
-      pointer-events: none;
-    }
-    /* Lyrics button */
-    .lyrics-btn {
-      position: fixed;
-      bottom: 1.5rem;
-      right: 1.5rem;
-      z-index: 50;
-      background: transparent;
-      border: 1px solid var(--gold);
-      color: var(--gold);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      padding: 0.6rem 1.3rem;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 15px rgba(201,168,76,0.15);
-    }
-    .lyrics-btn:hover {
-      background: rgba(201,168,76,0.12);
-      box-shadow: 0 0 25px rgba(201,168,76,0.35);
     }
 
-    /* Lyrics modal */
+    /* Lyrics */
+    .lyrics-btn {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 50;
+      background: transparent; border: 1px solid var(--gold); color: var(--gold);
+      font-family: 'Cormorant Garamond', serif; font-size: 0.75rem;
+      letter-spacing: 0.25em; text-transform: uppercase; padding: 0.6rem 1.3rem;
+      border-radius: 30px; cursor: pointer; transition: all 0.3s ease;
+      box-shadow: 0 0 15px rgba(201,168,76,0.15);
+    }
+    .lyrics-btn:hover { background: rgba(201,168,76,0.12); box-shadow: 0 0 25px rgba(201,168,76,0.35); }
+
     .lyrics-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 200;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(10,6,2,0.85);
-      backdrop-filter: blur(6px);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.35s ease;
+      position: fixed; inset: 0; z-index: 200; display: flex; align-items: center;
+      justify-content: center; background: rgba(10,6,2,0.85); backdrop-filter: blur(6px);
+      opacity: 0; pointer-events: none; transition: opacity 0.35s ease;
     }
-    .lyrics-overlay.show {
-      opacity: 1;
-      pointer-events: all;
-    }
+    .lyrics-overlay.show { opacity: 1; pointer-events: all; }
     .lyrics-modal {
-      background: linear-gradient(160deg, #1e1408, #2a1b08);
-      border: 1px solid var(--gold-dark);
-      border-radius: 16px;
-      width: min(560px, 92vw);
-      max-height: 80vh;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 0 80px rgba(201,168,76,0.2);
-      transform: translateY(20px);
-      transition: transform 0.35s ease;
+      background: linear-gradient(160deg, #1e1408, #2a1b08); border: 1px solid var(--gold-dark);
+      border-radius: 16px; width: min(560px, 92vw); max-height: 80vh;
+      display: flex; flex-direction: column; box-shadow: 0 0 80px rgba(201,168,76,0.2);
+      transform: translateY(20px); transition: transform 0.35s ease;
     }
-    .lyrics-overlay.show .lyrics-modal {
-      transform: translateY(0);
-    }
+    .lyrics-overlay.show .lyrics-modal { transform: translateY(0); }
     .lyrics-header {
-      padding: 1.3rem 1.8rem;
-      border-bottom: 1px solid rgba(201,168,76,0.2);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-shrink: 0;
+      padding: 1.3rem 1.8rem; border-bottom: 1px solid rgba(201,168,76,0.2);
+      display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
     }
-    .lyrics-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.05rem;
-      color: var(--gold-light);
-      font-style: italic;
-    }
-    .lyrics-x {
-      background: none;
-      border: none;
-      color: var(--gold-dark);
-      font-size: 1.3rem;
-      cursor: pointer;
-      transition: color 0.2s;
-      line-height: 1;
-    }
+    .lyrics-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--gold-light); font-style: italic; }
+    .lyrics-x { background: none; border: none; color: var(--gold-dark); font-size: 1.3rem; cursor: pointer; transition: color 0.2s; line-height: 1; }
     .lyrics-x:hover { color: var(--gold); }
     .lyrics-body {
-      overflow-y: auto;
-      padding: 1.8rem 2rem 2rem;
-      font-family: 'Cormorant Garamond', serif;
-      color: var(--cream);
-      font-size: 1.05rem;
-      line-height: 1.9;
-      scrollbar-width: thin;
-      scrollbar-color: var(--gold-dark) transparent;
-    }
-    .lyrics-body p { margin-bottom: 1.4rem; }
-    .lyrics-body .chorus {
-      color: var(--gold-light);
-      font-style: italic;
-      border-left: 2px solid var(--gold-dark);
-      padding-left: 1rem;
+      overflow-y: auto; padding: 1.8rem 2rem 2rem;
+      font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; line-height: 1.9;
+      scrollbar-width: thin; scrollbar-color: var(--gold-dark) transparent;
     }
     .lyrics-body .lyric-line {
-      padding: 0.3rem 0.5rem;
-      border-radius: 6px;
-      transition: all 0.4s ease;
-      color: rgba(253,248,240,0);
-      font-size: 1.05rem;
-      line-height: 1.9;
-      margin-bottom: 0.15rem;
+      padding: 0.3rem 0.5rem; border-radius: 6px; transition: all 0.4s ease;
+      color: rgba(253,248,240,0); font-size: 1.05rem; line-height: 1.9; margin-bottom: 0.15rem;
     }
     .lyrics-body .lyric-line.chorus {
-      color: rgba(232,208,138,0.35);
-      font-style: italic;
-      padding-left: 1rem;
-      border-left: 2px solid rgba(138,106,31,0.3);
+      color: rgba(232,208,138,0); font-style: italic;
+      padding-left: 1rem; border-left: 2px solid rgba(138,106,31,0.3);
     }
     .lyrics-body .lyric-line.active {
       color: var(--cream) !important;
       text-shadow: 0 0 20px rgba(201,168,76,0.5);
-      transform: scale(1.03);
-      transform-origin: left center;
+      transform: scale(1.03); transform-origin: left center;
     }
-    .lyrics-body .lyric-line.sung {
-    color: rgba(253,248,240,0.35);
-    }
-    .lyrics-body .lyric-line.chorus.sung {
-    color: rgba(232,208,138,0.35);
-    }
-    .lyrics-body .lyric-line.chorus.active {
-      color: var(--gold-light) !important;
-    }
+    .lyrics-body .lyric-line.chorus.active { color: var(--gold-light) !important; }
+    .lyrics-body .lyric-line.sung { color: rgba(253,248,240,0.35); }
+    .lyrics-body .lyric-line.chorus.sung { color: rgba(232,208,138,0.35); }
   </style>
 </head>
 <body>
@@ -464,13 +216,13 @@
 
   <div class="player-wrap">
     <div class="player-label">♪ Ons Lied</div>
-    <button class="player-btn" id="playBtn" onclick="togglePlay()" title="Afspelen / Pauzeren">
-      ▶
-    </button>
-    <div class="progress-wrap">
-      <div class="progress-bar" id="progressBar"></div>
+    <button class="player-btn" id="playBtn" onclick="togglePlay()" title="Afspelen / Pauzeren">▶</button>
+    <div class="seek-wrap">
+      <span class="seek-time" id="currentTime">0:00</span>
+      <input type="range" id="seekBar" value="0" min="0" max="100" step="0.1">
+      <span class="seek-time" id="totalTime">0:00</span>
     </div>
-    <div class="player-status" id="playerStatus">Klik om te spelen</div>
+    <div class="player-status" id="playerStatus">Klik op ▶ om te spelen</div>
   </div>
 
   <div class="bottom-ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
@@ -478,23 +230,19 @@
 
 <button class="lyrics-btn" onclick="openLyrics()">♪ Tekst</button>
 
-<!-- Lyrics modal -->
 <div class="lyrics-overlay" id="lyricsOverlay" onclick="closeLyricsOutside(event)">
   <div class="lyrics-modal">
     <div class="lyrics-header">
       <span class="lyrics-title">♪ Ons Lied — Ronnie & Krista</span>
       <button class="lyrics-x" onclick="closeLyrics()">✕</button>
     </div>
-    <div class="lyrics-body" id="lyricsBody">
-    </div>
+    <div class="lyrics-body" id="lyricsBody"></div>
   </div>
 </div>
 
-<!-- Verander 'muziek.mp3' naar de bestandsnaam van jouw mp3 -->
-<!-- Easter egg overlay -->
 <div class="egg-overlay" id="eggOverlay" onclick="closeEgg(event)">
   <div class="egg-card" id="eggCard" onclick="revealAnswer()">
-    <div class="egg-tag">✦ ✦ ✦</div>
+    <div class="egg-tag">✦ Wist je dat? ✦</div>
     <div class="egg-question" id="eggQuestion"></div>
     <div class="egg-answer" id="eggAnswer"></div>
     <div class="egg-hint">Klik op de kaart voor het antwoord</div>
@@ -504,11 +252,12 @@
 <audio id="audio" src="Liedje.mpeg" preload="auto"></audio>
 
 <script>
+  // Lyrics modal
   function openLyrics() { document.getElementById('lyricsOverlay').classList.add('show'); }
   function closeLyrics() { document.getElementById('lyricsOverlay').classList.remove('show'); }
   function closeLyricsOutside(e) { if (e.target === document.getElementById('lyricsOverlay')) closeLyrics(); }
 
-  // Karaoke lyrics met timestamps (seconden)
+  // Karaoke data
   const lyricsData = [
     { t: 8,   text: "Zeven jaar geleden, weet je 't nog misschien?", chorus: false },
     { t: 11,  text: "Daar bij de zumba hadden jullie 't al gezien.", chorus: false },
@@ -553,10 +302,9 @@
     { t: 158, text: "Wij wensen alle geluk en liefde toe", chorus: true },
     { t: 162, text: "Met jullie gezinnetje zonder gedoe", chorus: true },
     { t: 166, text: "Dus blijf elkaar die liefde geven.", chorus: true },
-    { t: 169, text: "Ronnie en Krista, lang zullen leven!", chorus: true },
+    { t: 169, text: "Ronnie en Krista, lang zullen ze leven!", chorus: true },
   ];
 
-  // Bouw karaoke regels in de modal
   const lyricsBody = document.getElementById('lyricsBody');
   lyricsData.forEach((line, i) => {
     const el = document.createElement('div');
@@ -578,7 +326,7 @@
         const old = document.getElementById('line-' + activeLine);
         old?.classList.remove('active');
         old?.classList.add('sung');
-        }
+      }
       if (current >= 0) {
         const el = document.getElementById('line-' + current);
         el?.classList.add('active');
@@ -590,14 +338,8 @@
 
   // Easter eggs
   const eggs = {
-    ronnie: {
-      question: "Hoe wordt Ronnie ook wel genoemd? 🤔",
-      answer: "Een dikke boomer. 😎"
-    },
-    krista: {
-      question: "Het is grijs en er worden dingen van gemaakt…",
-      answer: "Staal! 🔩"
-    }
+    ronnie: { question: "Hoe wordt Ronnie ook wel genoemd? 🤔", answer: "Een dikke boomer. 😎" },
+    krista: { question: "Het is grijs en er worden dingen van gemaakt…", answer: "Staal! 🔩" }
   };
 
   function showEgg(name) {
@@ -606,95 +348,73 @@
     document.getElementById('eggAnswer').textContent = egg.answer || '';
     const card = document.getElementById('eggCard');
     card.classList.remove('revealed');
-    if (!egg.answer) card.style.cursor = 'default';
-    else card.style.cursor = 'pointer';
+    card.style.cursor = egg.answer ? 'pointer' : 'default';
     document.getElementById('eggOverlay').classList.add('show');
   }
-
-  function revealAnswer() {
-    const card = document.getElementById('eggCard');
-    card.classList.add('revealed');
-  }
-
+  function revealAnswer() { document.getElementById('eggCard').classList.add('revealed'); }
   function closeEgg(e) {
-    if (e.target === document.getElementById('eggOverlay')) {
+    if (e.target === document.getElementById('eggOverlay'))
       document.getElementById('eggOverlay').classList.remove('show');
-    }
   }
 
   // Stars
   const canvas = document.getElementById('stars');
-  const ctx = canvas.getContext('2d');
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
-
-  const starEls = [];
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+  window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
   for (let i = 0; i < 140; i++) {
     const star = document.createElement('div');
     star.className = 'star';
     const size = Math.random() * 2.5 + 0.5;
-    star.style.cssText = `
-      left: ${Math.random()*100}%;
-      top: ${Math.random()*100}%;
-      width: ${size}px;
-      height: ${size}px;
-      --d: ${(Math.random()*4+2).toFixed(1)}s;
-      --op: ${(Math.random()*0.6+0.1).toFixed(2)};
-      animation-delay: ${(Math.random()*6).toFixed(1)}s;
-    `;
-    document.getElementById('stars').parentElement.appendChild(star);
+    star.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;width:${size}px;height:${size}px;--d:${(Math.random()*4+2).toFixed(1)}s;--op:${(Math.random()*0.6+0.1).toFixed(2)};animation-delay:${(Math.random()*6).toFixed(1)}s;`;
+    document.body.appendChild(star);
   }
-  // Actually append to body
-  document.querySelectorAll('.star').forEach(s => document.body.appendChild(s));
 
   // Petals
   const petalSymbols = ['🎾','🍼','🎾','🍼','🎾'];
-  const container = document.getElementById('petals');
+  const petalContainer = document.getElementById('petals');
   for (let i = 0; i < 18; i++) {
     const p = document.createElement('div');
     p.className = 'petal';
     p.textContent = petalSymbols[Math.floor(Math.random()*petalSymbols.length)];
-    p.style.cssText = `
-      left: ${Math.random()*100}%;
-      font-size: ${(Math.random()*0.8+0.7).toFixed(1)}rem;
-      animation-duration: ${(Math.random()*10+8).toFixed(1)}s;
-      animation-delay: ${(Math.random()*12).toFixed(1)}s;
-    `;
-    container.appendChild(p);
+    p.style.cssText = `left:${Math.random()*100}%;font-size:${(Math.random()*0.8+0.7).toFixed(1)}rem;animation-duration:${(Math.random()*10+8).toFixed(1)}s;animation-delay:${(Math.random()*12).toFixed(1)}s;`;
+    petalContainer.appendChild(p);
   }
 
-  // Audio
+  // Audio + seek bar
   const audio = document.getElementById('audio');
   const btn = document.getElementById('playBtn');
   const status = document.getElementById('playerStatus');
-  const progressBar = document.getElementById('progressBar');
+  const seekBar = document.getElementById('seekBar');
+  const currentTimeEl = document.getElementById('currentTime');
+  const totalTimeEl = document.getElementById('totalTime');
   let playing = false;
 
-  // Autoplay: probeer direct, anders wacht op eerste klik
-  let started = false;
-  function startAudio() {
-    if (started) return;
-    started = true;
-    audio.play().then(() => {
-      playing = true;
-      btn.textContent = '⏸';
-      status.textContent = 'Speelt af…';
-    });
+  function formatTime(s) {
+    const m = Math.floor(s / 60);
+    return m + ':' + String(Math.floor(s % 60)).padStart(2, '0');
   }
 
-  window.addEventListener('load', () => {
-    audio.play().then(() => {
-      started = true;
-      playing = true;
-      btn.textContent = '⏸';
-      status.textContent = 'Speelt af…';
-    }).catch(() => {
-      status.textContent = '♪ Tik ergens om te beginnen';
-    });
+  audio.addEventListener('loadedmetadata', () => {
+    totalTimeEl.textContent = formatTime(audio.duration);
+  });
+
+  audio.addEventListener('timeupdate', () => {
+    if (audio.duration) {
+      seekBar.value = (audio.currentTime / audio.duration * 100);
+      currentTimeEl.textContent = formatTime(audio.currentTime);
+    }
+    updateKaraoke();
+  });
+
+  seekBar.addEventListener('input', (e) => {
+    audio.currentTime = (e.target.value / 100) * audio.duration;
+  });
+
+  audio.addEventListener('ended', () => {
+    btn.textContent = '▶';
+    status.textContent = 'Klaar';
+    seekBar.value = 100;
+    playing = false;
   });
 
   function togglePlay() {
@@ -711,22 +431,12 @@
     }
   }
 
-  audio.addEventListener('timeupdate', () => {
-    if (audio.duration) {
-      progressBar.style.width = (audio.currentTime / audio.duration * 100) + '%';
+  // Spatiebalk
+  document.addEventListener('keydown', (e) => {
+    if (e.code === 'Space' && e.target === document.body) {
+      e.preventDefault();
+      togglePlay();
     }
-    updateKaraoke();
-  });
-
-  audio.addEventListener('timeupdate', () => {
-  console.log(Math.floor(audio.currentTime));
-  });
-
-  audio.addEventListener('ended', () => {
-    btn.textContent = '▶';
-    status.textContent = 'Klaar';
-    progressBar.style.width = '100%';
-    playing = false;
   });
 </script>
 </body>
