@@ -86,10 +86,8 @@
       margin: 0 auto; box-shadow: 0 0 20px rgba(201,168,76,0.2);
     }
     .player-btn:hover { background: rgba(201,168,76,0.15); box-shadow: 0 0 30px rgba(201,168,76,0.5); transform: scale(1.05); }
-
     .player-status { margin-top: 0.8rem; font-size: 0.8rem; letter-spacing: 0.2em; color: var(--gold-light); opacity: 0.7; min-height: 1.2em; }
 
-    /* Seek bar */
     .seek-wrap {
       margin-top: 1.2rem; display: flex; align-items: center;
       gap: 0.6rem; width: 260px; margin-left: auto; margin-right: auto;
@@ -173,6 +171,33 @@
       font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; line-height: 1.9;
       scrollbar-width: thin; scrollbar-color: var(--gold-dark) transparent;
     }
+
+    /* Countdown */
+    .lyrics-countdown {
+      text-align: center;
+      padding: 2rem 0 1rem;
+      display: none;
+    }
+    .lyrics-countdown.visible { display: block; }
+    .countdown-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      color: var(--gold);
+      line-height: 1;
+      animation: pulse 1s ease-in-out infinite;
+    }
+    .countdown-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-top: 0.5rem;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.92); }
+    }
+
     .lyrics-body .lyric-line {
       padding: 0.3rem 0.5rem; border-radius: 6px; transition: all 0.4s ease;
       color: rgba(253,248,240,0); font-size: 1.05rem; line-height: 1.9; margin-bottom: 0.15rem;
@@ -233,10 +258,20 @@
 <div class="lyrics-overlay" id="lyricsOverlay" onclick="closeLyricsOutside(event)">
   <div class="lyrics-modal">
     <div class="lyrics-header">
-      <span class="lyrics-title">♪ Ons Lied — Ronnie & Krista</span>
+      <span class="lyrics-title">♪ Hè, Wat Zeg Je? — Ronnie & Krista</span>
       <button class="lyrics-x" onclick="closeLyrics()">✕</button>
     </div>
-    <div class="lyrics-body" id="lyricsBody"></div>
+    <div class="lyrics-body" id="lyricsBody">
+      <div id="lyricsNotPlaying" style="display:none; text-align:center; padding:3rem 1rem;">
+        <div style="font-size:2rem; margin-bottom:1rem; color:var(--gold);">♪</div>
+        <div style="font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--cream); font-style:italic; margin-bottom:0.6rem;">Start de muziek om de tekst te zien!</div>
+        <div style="font-size:0.72rem; letter-spacing:0.25em; color:var(--gold-dark); text-transform:uppercase;">Klik op ▶ op de pagina</div>
+      </div>
+      <div class="lyrics-countdown" id="lyricsCountdown">
+        <div class="countdown-number" id="countdownNumber">8</div>
+        <div class="countdown-label">begint zo…</div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -252,11 +287,6 @@
 <audio id="audio" src="Liedje.mpeg" preload="auto"></audio>
 
 <script>
-  // Lyrics modal
-  function openLyrics() { document.getElementById('lyricsOverlay').classList.add('show'); }
-  function closeLyrics() { document.getElementById('lyricsOverlay').classList.remove('show'); }
-  function closeLyricsOutside(e) { if (e.target === document.getElementById('lyricsOverlay')) closeLyrics(); }
-
   // Karaoke data
   const lyricsData = [
     { t: 8,   text: "Zeven jaar geleden, weet je 't nog misschien?", chorus: false },
@@ -304,9 +334,12 @@
     { t: 157, text: "Wij wensen alle geluk en liefde toe", chorus: true },
     { t: 161, text: "Met jullie gezinnetje zonder gedoe", chorus: true },
     { t: 164, text: "Dus blijf elkaar die liefde geven.", chorus: true },
-    { t: 167, text: "Ronnie en Krista, lang zullen leven!", chorus: true },
+    { t: 167, text: "Ronnie en Krista, lang zullen ze leven!", chorus: true },
   ];
 
+  const firstLyricTime = lyricsData[0].t;
+
+  // Bouw karaoke regels
   const lyricsBody = document.getElementById('lyricsBody');
   lyricsData.forEach((line, i) => {
     const el = document.createElement('div');
@@ -316,29 +349,51 @@
     lyricsBody.appendChild(el);
   });
 
+  const countdownEl = document.getElementById('lyricsCountdown');
+  const countdownNumber = document.getElementById('countdownNumber');
+
+  function updateCountdown() {
+    const remaining = firstLyricTime - audio.currentTime;
+    if (!playing || remaining <= 0) {
+      countdownEl.classList.remove('visible');
+    } else {
+      countdownEl.classList.add('visible');
+      countdownNumber.textContent = Math.ceil(remaining);
+    }
+  }
+
+  // Lyrics modal — start muziek als die nog niet speelt
+  function openLyrics() {
+    document.getElementById('lyricsOverlay').classList.add('show');
+    if (!playing) {
+      document.getElementById('lyricsNotPlaying').style.display = 'block';
+    }
+  }
+  function closeLyrics() { document.getElementById('lyricsOverlay').classList.remove('show'); }
+  function closeLyricsOutside(e) { if (e.target === document.getElementById('lyricsOverlay')) closeLyrics(); }
+
   let activeLine = -1;
   function updateKaraoke() {
-  const t = audio.currentTime;
-  let current = -1;
-  for (let i = lyricsData.length - 1; i >= 0; i--) {
-    if (t >= lyricsData[i].t) { current = i; break; }
-  }
-  if (current !== activeLine) {
-    // Herbereken alle regels bij elke regelwissel
-    lyricsData.forEach((_, i) => {
-      const el = document.getElementById('line-' + i);
-      if (!el) return;
-      el.classList.remove('active', 'sung');
-      if (i < current) el.classList.add('sung');
-      else if (i === current) el.classList.add('active');
-      // toekomstige regels blijven onzichtbaar
-    });
-    if (current >= 0) {
-      document.getElementById('line-' + current)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const t = audio.currentTime;
+    let current = -1;
+    for (let i = lyricsData.length - 1; i >= 0; i--) {
+      if (t >= lyricsData[i].t) { current = i; break; }
     }
-    activeLine = current;
+    if (current !== activeLine) {
+      lyricsData.forEach((_, i) => {
+        const el = document.getElementById('line-' + i);
+        if (!el) return;
+        el.classList.remove('active', 'sung');
+        if (i < current) el.classList.add('sung');
+        else if (i === current) el.classList.add('active');
+      });
+      if (current >= 0) {
+        document.getElementById('line-' + current)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      activeLine = current;
+    }
+    updateCountdown();
   }
-}
 
   // Easter eggs
   const eggs = {
@@ -384,7 +439,7 @@
     petalContainer.appendChild(p);
   }
 
-  // Audio + seek bar
+  // Audio
   const audio = document.getElementById('audio');
   const btn = document.getElementById('playBtn');
   const status = document.getElementById('playerStatus');
@@ -419,6 +474,7 @@
     status.textContent = 'Klaar';
     seekBar.value = 100;
     playing = false;
+    countdownEl.classList.remove('visible');
   });
 
   function togglePlay() {
@@ -427,15 +483,16 @@
       btn.textContent = '▶';
       status.textContent = 'Gepauzeerd';
       playing = false;
+      countdownEl.classList.remove('visible');
     } else {
       audio.play();
       btn.textContent = '⏸';
       status.textContent = 'Speelt af…';
       playing = true;
+      document.getElementById('lyricsNotPlaying').style.display = 'none';
     }
   }
 
-  // Spatiebalk
   document.addEventListener('keydown', (e) => {
     if (e.code === 'Space' && e.target === document.body) {
       e.preventDefault();
