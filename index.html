@@ -171,49 +171,11 @@
       font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; line-height: 1.9;
       scrollbar-width: thin; scrollbar-color: var(--gold-dark) transparent;
     }
-
-    /* Countdown */
-    .lyrics-countdown {
-      text-align: center;
-      padding: 2rem 0 1rem;
-      display: none;
+    .lyrics-body p { margin-bottom: 1.4rem; color: var(--cream); }
+    .lyrics-body p.chorus {
+      color: var(--gold-light); font-style: italic;
+      padding-left: 1rem; border-left: 2px solid var(--gold-dark);
     }
-    .lyrics-countdown.visible { display: block; }
-    .countdown-number {
-      font-family: 'Playfair Display', serif;
-      font-size: 4rem;
-      color: var(--gold);
-      line-height: 1;
-      animation: pulse 1s ease-in-out infinite;
-    }
-    .countdown-label {
-      font-size: 0.75rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gold-dark);
-      margin-top: 0.5rem;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.6; transform: scale(0.92); }
-    }
-
-    .lyrics-body .lyric-line {
-      padding: 0.3rem 0.5rem; border-radius: 6px; transition: all 0.4s ease;
-      color: rgba(253,248,240,0); font-size: 1.05rem; line-height: 1.9; margin-bottom: 0.15rem;
-    }
-    .lyrics-body .lyric-line.chorus {
-      color: rgba(232,208,138,0); font-style: italic;
-      padding-left: 1rem; border-left: 2px solid rgba(138,106,31,0.3);
-    }
-    .lyrics-body .lyric-line.active {
-      color: var(--cream) !important;
-      text-shadow: 0 0 20px rgba(201,168,76,0.5);
-      transform: scale(1.03); transform-origin: left center;
-    }
-    .lyrics-body .lyric-line.chorus.active { color: var(--gold-light) !important; }
-    .lyrics-body .lyric-line.sung { color: rgba(253,248,240,0.35); }
-    .lyrics-body .lyric-line.chorus.sung { color: rgba(232,208,138,0.35); }
   </style>
 </head>
 <body>
@@ -262,15 +224,68 @@
       <button class="lyrics-x" onclick="closeLyrics()">✕</button>
     </div>
     <div class="lyrics-body" id="lyricsBody">
+
       <div id="lyricsNotPlaying" style="display:none; text-align:center; padding:3rem 1rem;">
         <div style="font-size:2rem; margin-bottom:1rem; color:var(--gold);">♪</div>
         <div style="font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--cream); font-style:italic; margin-bottom:0.6rem;">Start de muziek om de tekst te zien!</div>
         <div style="font-size:0.72rem; letter-spacing:0.25em; color:var(--gold-dark); text-transform:uppercase;">Klik op ▶ op de pagina</div>
       </div>
-      <div class="lyrics-countdown" id="lyricsCountdown">
-        <div class="countdown-number" id="countdownNumber">8</div>
-        <div class="countdown-label">begint zo…</div>
+
+      <div id="lyricsContent" style="display:none;">
+        <p>Zeven jaar geleden, weet je 't nog misschien?<br>
+        Daar bij de zumba hadden jullie 't al gezien.<br>
+        Heerenveen, Hoogeveen wat maakt 't uit.<br>
+        Zolang jullie samen zijn boeit het geen fluit.</p>
+
+        <p>Toen was het officieel, wat geniaal.<br>
+        Nu zijn we dubbel familie allemaal!<br>
+        Ook nog vrienden, dubbel zo fijn,<br>
+        Met jullie samen, is alles één groot festijn!</p>
+
+        <p class="chorus">Ronnie en Krista — Hey!<br>
+        Wat zijn we trots op jullie twee!<br>
+        Eindelijk de volgende stap<br>
+        Tot een officieel partnerschap<br>
+        Lachen, dansen, hee hee!<br>
+        Dan roepen wij, olé!</p>
+
+        <p>Naar een pretpark? Let op de dag.<br>
+        Want anders sta je daar met je goede gedrag.<br>
+        Datum checken, extra vaak.<br>
+        Dat is nu niet meer Kris haar taak.</p>
+
+        <p>Ron hoort niet alles, soms mist hij het begin,<br>
+        "Hè, wat zeg je?" roept hij dan middenin.<br>
+        We blijven ons herhalen, altijd fijn.<br>
+        Ach ja… je zou maar een boomer zijn.</p>
+
+        <p class="chorus">Ronnie en Krista — Hey!<br>
+        Wat zijn we trots op jullie twee!<br>
+        Eindelijk de volgende stap<br>
+        Tot een officieel partnerschap<br>
+        Lachen, dansen, hee hee!<br>
+        Dan roepen wij, olé!</p>
+
+        <p>En in mei komt er nóg meer feestgedruis,<br>
+        Een klein meisje brengt meer leven in huis!<br>
+        Mini-stapjes, roze chaos misschien,<br>
+        Maar wat een geluk om dat samen te zien!</p>
+
+        <p>Flesjes, luiers, korte nachten — ach ja,<br>
+        Met jullie twee wordt dat helemaal prima!<br>
+        En wordt het chaos of gaat het even mis,<br>
+        Dan staan wij klaar… mits het niet elke zaterdag is.</p>
+
+        <p class="chorus">Ronnie en Krista — Hey!<br>
+        Straks met z'n drietjes, olé olé!<br>
+        Dubbel familie wordt nog meer,<br>
+        Met een mini erbij, wat een sfeer!<br>
+        Wij wensen alle geluk en liefde toe<br>
+        Met jullie gezinnetje zonder gedoe<br>
+        Dus blijf elkaar die liefde geven.<br>
+        Ronnie en Krista, lang zullen ze leven!</p>
       </div>
+
     </div>
   </div>
 </div>
@@ -287,113 +302,16 @@
 <audio id="audio" src="Liedje.mpeg" preload="auto"></audio>
 
 <script>
-  // Karaoke data
-  const lyricsData = [
-    { t: 8,   text: "Zeven jaar geleden, weet je 't nog misschien?", chorus: false },
-    { t: 11,  text: "Daar bij de zumba hadden jullie 't al gezien.", chorus: false },
-    { t: 14,  text: "Heerenveen, Hoogeveen wat maakt 't uit.", chorus: false },
-    { t: 17,  text: "Zolang jullie samen zijn boeit het geen fluit.", chorus: false },
-    { t: 20,  text: "Toen was het officieel, wat geniaal.", chorus: false },
-    { t: 24,  text: "Nu zijn we dubbel familie allemaal!", chorus: false },
-    { t: 27,  text: "Ook nog vrienden, dubbel zo fijn,", chorus: false },
-    { t: 30,  text: "Met jullie samen, is alles één groot festijn!", chorus: false },
-    { t: 36,  text: "Ronnie en Krista — Hey!", chorus: true },
-    { t: 38,  text: "Wat zijn we trots op jullie twee!", chorus: true },
-    { t: 42,  text: "Eindelijk de volgende stap", chorus: true },
-    { t: 46,  text: "Tot een officieel partnerschap", chorus: true },
-    { t: 49,  text: "Lachen, dansen, hee hee!", chorus: true },
-    { t: 52,  text: "Dan roepen wij, olé!", chorus: true },
-    { t: 60,  text: "Naar een pretpark? Let op de dag.", chorus: false },
-    { t: 63,  text: "Want anders sta je daar met je goede gedrag.", chorus: false },
-    { t: 66,  text: "Datum checken, extra vaak.", chorus: false },
-    { t: 69,  text: "Dat is nu niet meer Kris haar taak.", chorus: false },
-    { t: 72,  text: "Ron hoort niet alles, soms mist hij het begin,", chorus: false },
-    { t: 75,  text: "\"Hè, wat zeg je?\" roept hij dan middenin.", chorus: false },
-    { t: 79,  text: "We blijven ons herhalen, altijd fijn.", chorus: false },
-    { t: 82,  text: "Ach ja…", chorus: false },
-    { t: 84,  text: "Je zou maar een boomer zijn.", chorus: false },
-    { t: 88,  text: "Ronnie en Krista — Hey!", chorus: true },
-    { t: 90,  text: "Wat zijn we trots op jullie twee!", chorus: true },
-    { t: 94,  text: "Eindelijk de volgende stap", chorus: true },
-    { t: 97,  text: "Tot een officieel partnerschap", chorus: true },
-    { t: 101, text: "Lachen, dansen, hee hee!", chorus: true },
-    { t: 104, text: "Dan roepen wij, olé!", chorus: true },
-    { t: 111, text: "En in mei komt er nóg meer feestgedruis,", chorus: false },
-    { t: 114, text: "Een klein meisje brengt meer leven in huis!", chorus: false },
-    { t: 118, text: "Mini-stapjes, roze chaos misschien,", chorus: false },
-    { t: 121, text: "Maar wat een geluk om dat samen te zien!", chorus: false },
-    { t: 126, text: "Flesjes, luiers, korte nachten — ach ja,", chorus: false },
-    { t: 129, text: "Met jullie twee wordt dat helemaal prima!", chorus: false },
-    { t: 132, text: "En wordt het chaos of gaat het even mis,", chorus: false },
-    { t: 136, text: "Dan staan wij klaar…", chorus: false },
-    { t: 140, text: "Mits het niet elke zaterdag is.", chorus: false },
-    { t: 144, text: "Ronnie en Krista — Hey!", chorus: true },
-    { t: 147, text: "Straks met z'n drietjes, olé olé!", chorus: true },
-    { t: 150, text: "Dubbel familie wordt nog meer,", chorus: true },
-    { t: 153, text: "Met een mini erbij, wat een sfeer!", chorus: true },
-    { t: 157, text: "Wij wensen alle geluk en liefde toe", chorus: true },
-    { t: 161, text: "Met jullie gezinnetje zonder gedoe", chorus: true },
-    { t: 164, text: "Dus blijf elkaar die liefde geven.", chorus: true },
-    { t: 167, text: "Ronnie en Krista, lang zullen ze leven!", chorus: true },
-  ];
-
-  const firstLyricTime = lyricsData[0].t;
-
-  // Bouw karaoke regels
-  const lyricsBody = document.getElementById('lyricsBody');
-  lyricsData.forEach((line, i) => {
-    const el = document.createElement('div');
-    el.className = 'lyric-line' + (line.chorus ? ' chorus' : '');
-    el.id = 'line-' + i;
-    el.textContent = line.text;
-    lyricsBody.appendChild(el);
-  });
-
-  const countdownEl = document.getElementById('lyricsCountdown');
-  const countdownNumber = document.getElementById('countdownNumber');
-
-  function updateCountdown() {
-    const remaining = firstLyricTime - audio.currentTime;
-    if (!playing || remaining <= 0) {
-      countdownEl.classList.remove('visible');
-    } else {
-      countdownEl.classList.add('visible');
-      countdownNumber.textContent = Math.ceil(remaining);
-    }
-  }
-
-  // Lyrics modal — start muziek als die nog niet speelt
+  // Lyrics modal
   function openLyrics() {
     document.getElementById('lyricsOverlay').classList.add('show');
     if (!hasStarted) {
       document.getElementById('lyricsNotPlaying').style.display = 'block';
+      document.getElementById('lyricsContent').style.display = 'none';
     }
   }
   function closeLyrics() { document.getElementById('lyricsOverlay').classList.remove('show'); }
   function closeLyricsOutside(e) { if (e.target === document.getElementById('lyricsOverlay')) closeLyrics(); }
-
-  let activeLine = -1;
-  function updateKaraoke() {
-    const t = audio.currentTime;
-    let current = -1;
-    for (let i = lyricsData.length - 1; i >= 0; i--) {
-      if (t >= lyricsData[i].t) { current = i; break; }
-    }
-    if (current !== activeLine) {
-      lyricsData.forEach((_, i) => {
-        const el = document.getElementById('line-' + i);
-        if (!el) return;
-        el.classList.remove('active', 'sung');
-        if (i < current) el.classList.add('sung');
-        else if (i === current) el.classList.add('active');
-      });
-      if (current >= 0) {
-        document.getElementById('line-' + current)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-      activeLine = current;
-    }
-    updateCountdown();
-  }
 
   // Easter eggs
   const eggs = {
@@ -463,7 +381,6 @@
       seekBar.value = (audio.currentTime / audio.duration * 100);
       currentTimeEl.textContent = formatTime(audio.currentTime);
     }
-    updateKaraoke();
   });
 
   seekBar.addEventListener('input', (e) => {
@@ -475,7 +392,6 @@
     status.textContent = 'Klaar';
     seekBar.value = 100;
     playing = false;
-    countdownEl.classList.remove('visible');
   });
 
   function togglePlay() {
@@ -484,14 +400,16 @@
       btn.textContent = '▶';
       status.textContent = 'Gepauzeerd';
       playing = false;
-      countdownEl.classList.remove('visible');
     } else {
       audio.play();
       btn.textContent = '⏸';
       status.textContent = 'Speelt af…';
       playing = true;
-      hasStarted = true;
-      document.getElementById('lyricsNotPlaying').style.display = 'none';
+      if (!hasStarted) {
+        hasStarted = true;
+        document.getElementById('lyricsNotPlaying').style.display = 'none';
+        document.getElementById('lyricsContent').style.display = 'block';
+      }
     }
   }
 
