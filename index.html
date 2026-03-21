@@ -135,6 +135,18 @@
         radial-gradient(ellipse 40% 30% at 70% 20%, rgba(180,130,30,0.06) 0%, transparent 60%);
     }
 
+    .version-select {
+      display: flex; gap: 0.6rem; justify-content: center; margin-bottom: 1.2rem;
+    }
+    .version-btn {
+      background: transparent; border: 1px solid var(--gold-dark); color: var(--gold-dark);
+      font-family: 'Cormorant Garamond', serif; font-size: 0.8rem;
+      letter-spacing: 0.15em; padding: 0.4rem 1rem; border-radius: 20px;
+      cursor: pointer; transition: all 0.3s ease;
+    }
+    .version-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .version-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.1); }
+
     /* Lyrics */
     .lyrics-btn {
       position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 50;
@@ -203,6 +215,11 @@
 
   <div class="player-wrap">
     <div class="player-label">♪ Ons Lied</div>
+
+    <div class="version-select">
+      <button class="version-btn active" id="btnFeest" onclick="selectVersion('feest')">🎉 Feest</button>
+      <button class="version-btn" id="btnEmotioneel" onclick="selectVersion('emotioneel')">🥹 Emotioneel</button>
+    </div>
     <button class="player-btn" id="playBtn" onclick="togglePlay()" title="Afspelen / Pauzeren">▶</button>
     <div class="seek-wrap">
       <span class="seek-time" id="currentTime">0:00</span>
@@ -299,9 +316,34 @@
   </div>
 </div>
 
-<audio id="audio" src="Liedje.mpeg" preload="auto"></audio>
+<audio id="audio" src="Liedje_feest.mpeg" preload="auto"></audio>
 
 <script>
+  // Versie selectie
+  function selectVersion(versie) {
+    if (playing) {
+      audio.pause();
+      btn.textContent = '▶';
+      status.textContent = 'Klik op ▶ om te spelen';
+      playing = false;
+    }
+    const wasStarted = hasStarted;
+    hasStarted = false;
+    audio.src = versie === 'feest' ? 'Liedje_feest.mpeg' : 'Liedje_emotioneel.mpeg';
+    audio.load();
+    seekBar.value = 0;
+    currentTimeEl.textContent = '0:00';
+
+    document.getElementById('btnFeest').classList.toggle('active', versie === 'feest');
+    document.getElementById('btnEmotioneel').classList.toggle('active', versie === 'emotioneel');
+
+    // Reset tekst zichtbaarheid
+    if (wasStarted) {
+      hasStarted = false;
+      document.getElementById('lyricsNotPlaying').style.display = 'block';
+      document.getElementById('lyricsContent').style.display = 'none';
+    }
+  }
   // Lyrics modal
   function openLyrics() {
     document.getElementById('lyricsOverlay').classList.add('show');
